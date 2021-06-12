@@ -20,7 +20,7 @@ function Footer() {
 
             <Link
               class='social-icon-link github'
-              to='/'
+              href='https://github.com/SansNumbers'
               target='_blank'
               aria-label='Github'
             >

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import '../../App.css';
+import { Link } from 'react-router-dom';
 
 export default class Posts extends React.Component {
   state = {
@@ -20,7 +21,7 @@ export default class Posts extends React.Component {
     return(
       <>
       <div class="box--container-wrapper">
-        <h1>Posts</h1>
+        <h1>Posts<button><Link to="/createPost">Make a new post</Link></button></h1>
         <div class="box--container">
           {
             this.state.posts.map((posts, index) =>{

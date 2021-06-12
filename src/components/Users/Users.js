@@ -20,7 +20,7 @@ export default class PersonList extends React.Component {
     return(
       <>
       <div class="box--container-wrapper">
-        <h1>Users</h1>
+        <h1>Users </h1>
         <div class="box--container">
         {
           this.state.users.map((person, ind) =>{

@@ -20,7 +20,6 @@ export default class Categories extends React.Component {
     return(
       <>
       <div class="box--container-wrapper">
-
       <h1>Categories</h1>
       <div class="box--container">
         {

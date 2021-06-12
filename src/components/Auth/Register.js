@@ -3,6 +3,8 @@ import Cookies from 'js-cookie';
 import axios from "axios";
 import { Link } from 'react-router-dom'
 
+import './Register.css';
+
 export default class Registration extends Component {
   constructor(props) {
     super(props);
@@ -49,7 +51,7 @@ export default class Registration extends Component {
 
   render() {
     return (
-      <div>
+      <div class="reg__form">
         <form onSubmit={this.handleSubmit}>
         <input
             type="login"
