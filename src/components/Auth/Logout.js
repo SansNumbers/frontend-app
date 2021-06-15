@@ -1,73 +1,37 @@
 import React, { Component } from "react";
 import Cookies from 'js-cookie';
 import axios from "axios";
-import { Link } from 'react-router-dom'
+import { changeScreen } from "../Home/homePage";
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-        login: "",
-        password: ""
-    };
-
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
+export default class Logout extends Component {
 
   handleSubmit(event) {
-    const { login, password } = this.state;
+    event.preventDefault();
+    Cookies.remove('token');
+    Cookies.remove('id');
     axios
       .post(
-        "http://127.0.0.1:8000/api/auth/login",
-        {
-            login: login,
-            password: password
-        },
+        "http://127.0.0.1:8000/api/auth/logout"
       )
       .then(response => {
         console.log(response.data);
-        this.props.history.push("/profile");
-        Cookies.set('token', response.data.token);
+
+        this.props.history.push("/login");
       })
       .catch(error => {
-        console.log("login error", error);
+        console.log("logout error", error);
       });
-    event.preventDefault();
+      changeScreen("/posts")
   }
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-        <input
-            type="login"
-            name="login"
-            placeholder="Login"
-            value={this.state.login}
-            onChange={this.handleChange}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            required
-          />
-          <button type="submit">Log in</button>
-        </form>
-        <span>Dont have an account? <Link to="/register">Sing up</Link></span><br></br>
-        <span>Forgot password? <Link to="/password-reset">Remind password</Link></span>
-      </div>
+      <>
+        <h1>Hey</h1>
+        <div>
+          <button onClick = {e => this.handleSubmit(e)}>Logout</button>
+        </div>
+      </>
     );
   }
 }

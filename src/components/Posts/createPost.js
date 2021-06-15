@@ -1,23 +1,8 @@
-// axios({
-//           method: 'post',
-//           url: "http://127.0.0.1:8000/api/posts",
-//           headers: { 'Authorization': 'Bearer ' + Cookie.get("token")},
-//           data: {
-//             title: title,
-//             content: content,
-//             categories: conv(categories)
-//           }
-//           })
-//           .then(function () {
-//               window.location.href = "/my_page"
-//           })
-//           .catch(function (error) {
-//               console.log(error);
-//           });
-
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from 'react-router-dom'
+import Select from 'react-select'
+
+import '../../App.css';
 
 export default class createPost extends Component {
   constructor(props) {
@@ -26,7 +11,7 @@ export default class createPost extends Component {
     this.state = {
         title: "",
         content: "",
-        categories: ""
+        categories: []
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -79,11 +64,11 @@ export default class createPost extends Component {
             onChange={this.handleChange}
             required
           />
-          <input
+          <Select
+            options={this.state.categories}
             type="categories"
             name="categories"
             placeholder="Categories of the post"
-            value={this.state.categories}
             onChange={this.handleChange}
             required
           />

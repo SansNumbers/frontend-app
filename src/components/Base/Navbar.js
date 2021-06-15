@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import { Button } from './Button';
+import Cookies from 'js-cookie';
 
 function Navbar() {
     const [click, setClick] = useState(false);
@@ -38,11 +39,13 @@ function Navbar() {
 
                     <ul className={click ? 'nav-menu active' : 'nav-menu'}>
 
-                        <li className='nav-item'>
-                            <Link to='/profile' className='nav-links' onClick={closeMobileMenu}>
+                        {Cookies.get('token') != null &&
+                        (<li className='nav-item'>
+                            <Link to='/myProfile' className='nav-links' onClick={closeMobileMenu}>
                             My Profile
                             </Link>
                         </li>
+                        )}
 
                         <li className='nav-item'>
                             <Link to='/posts' className='nav-links' onClick={closeMobileMenu}>
@@ -61,18 +64,18 @@ function Navbar() {
                                 Users
                             </Link> 
                         </li>
-
-                        <li className='nav-item'>
-                            <Link to='/login' className='nav-links-mobile' onClick={closeMobileMenu}>
-                                Login
-                            </Link>
-                        </li>
-
                     </ul>
 
-                    {button && <Button buttonStyle='btn--outline'>
-                        Sign in
-                    </Button>}
+                    {Cookies.get('token') == null &&
+                    (<Link to={"/login"}>
+                        Login
+                    </Link>)
+                    ||
+                    (<Link to={"/logout"}>
+                        Logout
+                    </Link>)
+                    }
+
                 </div>
             </nav>
         </div>

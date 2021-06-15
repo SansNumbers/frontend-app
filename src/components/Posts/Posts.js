@@ -1,41 +1,56 @@
 import React from 'react';
 import axios from 'axios';
+
 import '../../App.css';
+
 import { Link } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 export default class Posts extends React.Component {
-  state = {
-    posts: []
+  constructor (props) {
+    super(props);
+    this.state = {
+      post: [],
+    }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     axios.get(`http://127.0.0.1:8000/api/posts`)
-      .then(res => {
-        const posts = res.data;
-        this.setState({ posts });
-      })
+    .then(res => {
+      const posts = res.data;
+      this.setState({ posts });
+    })
   }
 
   render() 
   {
+    console.log(this.state);
     return(
       <>
       <div class="box--container-wrapper">
-        <h1>Posts<button><Link to="/createPost">Make a new post</Link></button></h1>
-        <div class="box--container">
+        <h1>Posts</h1>
+
           {
-            this.state.posts.map((posts, index) =>{
-              return (
-                  <div class={"boxes"}>
-                    <div class="author" key={index}>Author: {posts.author}</div>
-                    <div class="rating" key={index}>Rating: {posts.rating}</div>
-                    <div class="categories" key={index}>Categories: {posts.categories.value}</div>
-                    <div class="title" key={index}>Title: {posts.title}</div>
-                    <div class="content" key={index}>Content: {posts.content}</div>
-                  </div>
-              );
-            })
+          Cookies.get('token') != null &&
+            (<Link to={"/createPost"}>
+                Make a post
+            </Link>)
           }
+
+        <div class="box--container">
+        {
+          this.state.posts?.map((mapPosts, index) =>{
+            const url = "/posts/" + mapPosts.id
+            return (
+              <div class={"boxes"}>
+                <div class="title" key={index}>Title: {mapPosts.title}</div>
+                <div class="content" key={index}>Content: {mapPosts.content}</div>
+                <div class="rating" key={index}>Rating: {mapPosts.rating}</div>
+                <span><Link to={url}>Go to post</Link></span>
+              </div>
+            );
+          })
+        }
           </div>
         </div>
       </>
