@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import ReactPaginate from 'react-paginate';
 
 import '../../App.css';
 
